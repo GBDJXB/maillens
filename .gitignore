@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+*.db
+*.mbox
+.env
+
+# Virtual environments
+.venv
+
+# IDE
+.idea/
+
+# Allow test fixtures
+!tests/fixtures/*.mbox
