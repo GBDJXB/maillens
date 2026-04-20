@@ -209,6 +209,7 @@ The iterator must be **tolerant**: parsing a single malformed message should not
 - Handle MIME-encoded headers via `email.header.decode_header` + `make_header`.
 - Prefer `text/plain` parts; fall back to HTML stripped to text.
 - Use `get_content_charset()` with `errors="replace"` on decode.
+- **Date parsing fallback chain (do not simplify this):** Try `Date` header first. If missing or unparseable, try the timestamp embedded in the bottom-most `Received` header (after the last `;`). If that also fails, set `sent_at` to the epoch sentinel `datetime(1970, 1, 1, tzinfo=timezone.utc)`. Never use `datetime.now()` as a fallback — it silently lies about when the email was sent. The epoch value makes broken dates visibly wrong when sorting.
 
 **PST ingester specifics (Week 2+):**
 - Shell out to `readpst -e -o <outdir> <pstfile>` to convert PST to mbox files per folder.
